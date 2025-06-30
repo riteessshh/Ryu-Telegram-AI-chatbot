@@ -95,7 +95,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"👋 Hi! I'm your AI agent.\n\n"
             f"Current model: {model}\n{desc}\n\n"
             "You can switch models anytime with /setmodel <model>.\n"
-            f"Available: {', '.join([f'{k} ({MODEL_DESCRIPTIONS[k].split(':')[0]})' for k in MODELS])}.\n"
+            f"Available: {', '.join([f'{k} ("{MODEL_DESCRIPTIONS[k].split(":")[0]}")' for k in MODELS])}.\n"
             "Use /model to see your current model.\nUse /clear to reset the conversation.\n\nType your message to begin!"
         )
 
