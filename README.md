@@ -1,40 +1,42 @@
-# Ryu Telegram Chatbot — Documentation
+# Ryu Telegram Chatbot
 
 ## Overview
 
-Ryu is a Telegram chatbot that allows users to interact with multiple AI models (via OpenRouter API) through a conversational interface. This bot is implemented in Python using the `python-telegram-bot` library and integrates multiple LLMs (e.g., Deepseek, Gemma, Mistral, Nvidia Llama) with persistent user history and model preferences.
+Ryu is a powerful, multi-model Telegram chatbot built in Python. It leverages the OpenRouter API to access several leading AI models (Deepseek, Gemma, Mistral, Nvidia Llama) and provides:
+- Persistent user chat history
+- Per-user model preferences
+- A unique "Discussion Mode" where all models collaborate for the best answer
 
 ---
 
-## Features
+## 🚀 Features
 
-- ✅ Supports multiple models with on-the-fly switching
-- 📦 Uses OpenRouter API to access free AI models
-- 💬 Maintains session-wise conversation history
-- 📁 Stores user model preferences
-- 🔐 Uses .env file to securely store API keys
-- 🧠 Returns model-specific intelligent responses based on prompts
+- ✅ **Multiple AI Models**: Switch between Deepseek, Gemma, Mistral, and Nvidia Llama on the fly.
+- 🤖 **Discussion Mode**: `/discussion` toggles a mode where all four models discuss your question and a top model (Deepseek) synthesizes the best answer.
+- ⏳ **Processing Notification**: In Discussion Mode, the bot immediately notifies you that your response is being processed.
+- 💬 **Session History**: Maintains per-user conversation history.
+- 📁 **Model Preferences**: Remembers your last-used model.
+- 🔐 **Secure API Keys**: Uses `.env` for secrets.
+- 🧠 **Intelligent Responses**: Each model brings its own strengths.
 
 ---
 
-## Dependencies
+## 📦 Dependencies
 
 - `python-telegram-bot`
 - `openai` (for OpenRouter)
 - `python-dotenv`
 
-Install them using pip:
-
+Install with:
 ```bash
 pip install python-telegram-bot openai python-dotenv
 ```
 
 ---
 
-## Environment Setup
+## ⚙️ Environment Setup
 
-Create a `.env` file:
-
+Create a `.env` file in your project root:
 ```env
 TELEGRAM_TOKEN=your_telegram_bot_token
 OPENROUTER_API_KEY=your_openrouter_api_key
@@ -42,34 +44,43 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 
 ---
 
-## How It Works
+## 🛠️ How It Works
 
-### Startup & Configuration
-
-- Loads Telegram bot token and OpenRouter key from `.env`
+- Loads API keys from `.env`
 - Defines available models and their descriptions
-- Sets up persistent user model preferences in `model_prefs.json`
-- Initializes conversation history in `chat_histories/`
+- Stores user model preferences in `model_prefs.json`
+- Maintains chat history in `chat_histories/`
 
-### Bot Commands
+---
 
-- `/start` — Shows welcome message and current model
-- `/model` — Displays current selected model
-- `/setmodel <model>` — Switches to a selected model
-- `/clear` — Clears chat history
-- `/stop` — Ends conversation politely
+## 💡 Bot Commands
 
-### Chat Handling
+| Command         | Description                                                        |
+|----------------|--------------------------------------------------------------------|
+| `/start`       | Welcome message and current model info                              |
+| `/model`       | Show your current selected model                                    |
+| `/setmodel <model>` | Switch to a different model (see table below)                  |
+| `/clear`       | Clear your chat history                                             |
+| `/stop`        | End the conversation politely                                       |
+| `/discussion`  | Toggle Discussion Mode (all models collaborate for each answer)     |
 
-- Appends user messages to the chat history
-- Sends message + history to selected OpenRouter model
-- Displays AI response tagged with model name (e.g., Ryu (deepseek): ...)
-- Stores updated history for session persistence
+---
 
-### Available Models (via OpenRouter)
+## 🤝 Discussion Mode
+
+When enabled:
+- Your message is sent to all four models.
+- Each model responds independently.
+- Their answers are combined and sent to a synthesizer model (Deepseek) with a prompt to discuss, compare, and provide the best answer.
+- You receive the synthesized answer, leveraging the strengths of all models.
+- While processing, you see a "please wait" message for better user experience.
+
+---
+
+## 🧠 Available Models
 
 | Key        | Model ID                                        | Description                   |
-| ---------- | ----------------------------------------------- | ----------------------------- |
+|------------|-------------------------------------------------|-------------------------------|
 | `gemma`    | `google/gemma-3n-e4b-it:free`                   | Google Gemma: general purpose |
 | `deepseek` | `deepseek/deepseek-chat-v3-0324:free`           | Fast & balanced               |
 | `mistral`  | `mistralai/mistral-small-3.2-24b-instruct:free` | Good for creativity           |
@@ -77,7 +88,7 @@ OPENROUTER_API_KEY=your_openrouter_api_key
 
 ---
 
-## File Structure
+## 📂 File Structure
 
 ```
 project/
@@ -89,15 +100,15 @@ project/
 
 ---
 
-## Limitations
+## 🚦 Limitations
 
-- No RASA NLU/intent handling included despite earlier plans
-- Depends entirely on OpenRouter API availability
+- No RASA NLU/intent handling (despite early plans)
+- Depends on OpenRouter API availability
 - No fallback logic for unavailable models
 
 ---
 
-## Future Enhancements
+## 🛣️ Future Enhancements
 
 - RASA integration for intent/entity recognition
 - Admin control over model usage
@@ -105,17 +116,18 @@ project/
 
 ---
 
-## How to Use the Bot (as a user)
+## 👤 How to Use the Bot
 
 1. Start by messaging `/start` to the bot on Telegram.
 2. Type your prompt and receive responses.
 3. Use `/setmodel <model>` to switch between available models.
 4. Use `/clear` to wipe the conversation.
 5. Use `/model` anytime to check your current AI model.
+6. Use `/discussion` to enable or disable Discussion Mode.
 
 ---
 
-## Running the Bot
+## ▶️ Running the Bot
 
 ```bash
 python hello.py
@@ -123,7 +135,7 @@ python hello.py
 
 ---
 
-## Contact & License
+## 📜 License
 
 MIT Licensed. Developed for exploration of LLM integrations via OpenRouter.
 
