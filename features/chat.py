@@ -6,6 +6,7 @@ from core.openai_client import client
 from features.tone import get_user_tone, TONE_SYSTEM_PROMPTS
 from features.model_management import get_user_model
 from features.discussion import is_discussion_enabled
+from features.mail import set_last_ai_response
 
 async def chat_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id if update.effective_chat else None
@@ -93,5 +94,6 @@ async def chat_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message:
         prefix = f"Ryu ({model_display}):\n"
         await send_long_message(update.message, prefix + bot_reply)
+        set_last_ai_response(chat_id, bot_reply)
     history.append({"role": "assistant", "content": str(bot_reply)})
     save_history(chat_id, history)
