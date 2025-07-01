@@ -8,8 +8,8 @@ from features.discussion import discussion
 from features.document import analyze_document, document_handler
 from features.web import scrape
 from features.chat import chat_handler
-from features.mail import sendmail, mail_natural_handler
-from features.schedule import schedule
+from features.mail import sendmail, mail_natural_handler, mail_document_handler
+from features.schedule import schedule, set_email_handler
 
 # ===== Logging =====
 logging.basicConfig(
@@ -35,9 +35,13 @@ def main():
     app.add_handler(CommandHandler("scrape", scrape))
     app.add_handler(CommandHandler("sendmail", sendmail))
     app.add_handler(CommandHandler("schedule", schedule))
+    app.add_handler(MessageHandler(
+        filters.Document.ALL & filters.CaptionRegex(r"(?i)(mail|email|send)\s+(it|this)?\s*to\s+[\w\.-]+@[\w\.-]+"), mail_document_handler))
+    app.add_handler(MessageHandler(
+        filters.Regex(r"(?i)(mail|email|send)\s+(it|this)?\s*to\s+[\w\.-]+@[\w\.-]+"), mail_natural_handler))
     app.add_handler(MessageHandler(filters.Document.ALL, document_handler))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), chat_handler))
-    app.add_handler(MessageHandler(filters.Regex(r"mail it to "), mail_natural_handler))
+    app.add_handler(MessageHandler(filters.Regex(r"my email is [\w\.-]+@[\w\.-]+"), set_email_handler))
     app.add_error_handler(error_handler)
     logger.info("Bot started. Listening for messages...")
     app.run_polling()

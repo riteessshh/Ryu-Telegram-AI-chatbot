@@ -4,7 +4,7 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
 
 ## Features
 
-- **Multi-model AI chat**: Switch between Gemma, Deepseek, Mistral, Nvidia Llama models.
+- **Multi-model AI chat**: Switch between Gemma, Deepseek, Mistral, Nvidia Llama, Qwen models.
 - **Tone switching**: `/settone <tone>` (sarcastic, friendly, professional, concise, motivational, humorous, default)
 - **Discussion mode**: `/discussion` — get a combined answer from all models.
 - **Document analysis**: Send a PDF or DOCX and get an AI summary.
@@ -12,7 +12,7 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
 - **Personalized tasks**:
   - **Send mail**: `/sendmail <recipient> <subject> <body>`
   - **Natural language mail**: Say `mail it to someone@example.com` after an AI response to send that response as an email.
-  - **Schedule events**: `/schedule <date> <time> <event>` (placeholder)
+  - **Schedule events**: `/schedule <date> <time> <event>` (with calendar invite)
 - **HTML formatting** and long message support.
 - **Robust error handling** and user feedback.
 
@@ -29,7 +29,15 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
   - `chat.py` — Main chat handler
   - `commands.py` — Start, clear, stop, error handler
   - `mail.py` — Email sending (command and natural language)
-  - `schedule.py` — Scheduling (placeholder)
+  - `schedule.py` — Scheduling (with calendar invite)
+
+## Supported AI Models
+
+- **Gemma (Google)**: General-purpose, high-quality model
+- **Deepseek**: Fast, balanced, and reliable for most tasks
+- **Mistral**: Good for creative and open-ended responses
+- **Nvidia Llama**: Large, advanced, and powerful model
+- **Qwen**: Large, advanced, and multilingual model from Alibaba
 
 ## Email Feature Setup
 

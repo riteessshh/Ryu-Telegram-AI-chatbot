@@ -94,6 +94,7 @@ async def chat_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message:
         prefix = f"Ryu ({model_display}):\n"
         await send_long_message(update.message, prefix + bot_reply)
-        set_last_ai_response(chat_id, bot_reply)
+        # Store the full formatted message as the last AI response (undo previous change)
+        set_last_ai_response(chat_id, prefix + bot_reply)
     history.append({"role": "assistant", "content": str(bot_reply)})
     save_history(chat_id, history)
