@@ -4,7 +4,7 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
 
 ## Features
 
-- **Multi-model AI chat**: Switch between Gemma, Deepseek, Mistral, Nvidia Llama, Qwen models.
+- **Multi-model AI chat**: Switch between Gemma, Deepseek, Mistral, Nvidia Llama, Qwen models. Use `/setmodel` to see and select available models interactively.
 - **Tone switching**: `/settone <tone>` (sarcastic, friendly, professional, concise, motivational, humorous, default)
 - **Discussion mode**: `/discussion` — get a combined answer from all models.
 - **Document analysis**: Send a PDF or DOCX and get an AI summary.
@@ -70,4 +70,8 @@ Add new features by creating a new module in `features/` and registering its han
 ---
 
 For more details, see comments in each module.
+
+## Model selection prompt
+
+- When you use `/setmodel` without arguments, the bot will show a list of available models and ask you to choose.
 
