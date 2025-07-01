@@ -1,6 +1,6 @@
 # Telegram AI Chatbot (Modular, Feature-Based)
 
-This project is a modular, feature-rich Telegram AI chatbot built with Python. It supports multiple AI models, tone switching, document/web analysis, and personalized tasks like sending mail and scheduling events.
+This project is a modular, feature-rich Telegram AI chatbot built with Python. It supports multiple AI models, tone switching, document/web analysis, and personalized tasks like sending mail and scheduling events with .ics calendar invites (no Google Calendar API required).
 
 ## Features
 
@@ -11,10 +11,12 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
 - **Web analysis**: `/scrape <url>` — summarize and analyze web pages.
 - **Personalized tasks**:
   - **Send mail**: `/sendmail <recipient> <subject> <body>`
-  - **Natural language mail**: Say `mail it to someone@example.com` after an AI response to send that response as an email.
-  - **Schedule events**: `/schedule <date> <time> <event>` (with calendar invite)
+  - **Natural language mail**: Say `mail it to someone@example.com` after an AI response to send that response as an email (supports attachments).
+  - **Schedule events**: `/schedule <date> <time> <event>` (sends .ics calendar invite via email)
+  - **Set your email**: Use `/setemail <your@email.com>` or say `my email is ...` or `set my email to ...` (multiple natural language patterns supported)
 - **HTML formatting** and long message support.
 - **Robust error handling** and user feedback.
+- **Extensible modular design**: Add new features easily in `features/`.
 
 ## Modular Code Structure
 
@@ -29,7 +31,7 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
   - `chat.py` — Main chat handler
   - `commands.py` — Start, clear, stop, error handler
   - `mail.py` — Email sending (command and natural language)
-  - `schedule.py` — Scheduling (with calendar invite)
+  - `schedule.py` — Scheduling (with .ics calendar invite)
 
 ## Supported AI Models
 
@@ -39,9 +41,9 @@ This project is a modular, feature-rich Telegram AI chatbot built with Python. I
 - **Nvidia Llama**: Large, advanced, and powerful model
 - **Qwen**: Large, advanced, and multilingual model from Alibaba
 
-## Email Feature Setup
+## Email & Scheduling Feature Setup
 
-To enable the mail feature, set these environment variables:
+To enable the mail and scheduling features, set these environment variables:
 
 ```
 BOT_EMAIL_ADDRESS=yourbot@gmail.com
@@ -51,10 +53,13 @@ BOT_EMAIL_PASSWORD=your_app_password
 - The bot uses Gmail SMTP by default. For other providers, update the SMTP settings in `features/mail.py`.
 - The `/sendmail` command requires: `/sendmail recipient@example.com Subject Body text here`
 - To send the last AI response as an email, say: `mail it to recipient@example.com`
+- To schedule an event and send a calendar invite, use: `/schedule 2025-07-01 15:00 Meeting with team`
+- You can set your email using `/setemail you@example.com` or natural language ("my email is ...").
+- User emails are currently stored in memory (not persistent across restarts).
 
 ## Getting Started
 
-1. Clone the repo and install dependencies.
+1. Clone the repo and install dependencies (`pip install -r requirements.txt`).
 2. Set up your `.env` file with Telegram and OpenRouter API keys, and email credentials.
 3. Run `python hello.py`.
 
